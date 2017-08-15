@@ -25,4 +25,4 @@ trans('validation.required', {attribute: 'email'}); // Should return the equival
 ```
 
 ### Config
-A configuration file is included too to customize the translation files that will be loaded to `__TRANSLATIONS__`. To publish the included config file, run `php artisan vendor:publish --provider=PolyglotServiceProvider --tag=config`.
+A configuration file is included too to customize the translation files that will be loaded to `__TRANSLATIONS__`. To publish the included config file, run `php artisan vendor:publish`.
