@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "trans.js",
     "repository": "git@github.com:hadefication/polyglot.git",
-    "author": "Glen  Bangkila <hadeinvane@gmail.com>",
+    "author": "Glen Gringgo  Bangkila <hadefication@gmail.com>",
     "license": "MIT",
     "scripts": {
         "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
