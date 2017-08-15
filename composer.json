@@ -1,21 +1,21 @@
 {
     "name": "hadefication/polyglot",
-    "description": "Just another media manager.",
-    "authors": [{
-        "name": "Glen Gringgo Bangkila",
-        "email": "hadefication@gmail.com"
-    }],
+    "description": "Extend Laravel Translation to JavaScript.",
+    "authors": [
+        {
+            "name": "Glen Gringgo Bangkila",
+            "email": "hadefication@gmail.com"
+        }
+    ],
     "require": {
-        "php": "^7.0",
-        "illuminate/contracts": "^5.1",
-        "illuminate/support": "^5.1"
+        "illuminate/support": "^5.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0"
     },
     "autoload": {
         "psr-4": {
-            "EETechMedia\\Mediaman\\": "src/"
+            "Hadefication\\Polyglot\\": "src/"
         }
     },
     "minimum-stability": "dev",

@@ -4,5 +4,5 @@ namespace Hadefication\Polyglot;
 
 class Polyglot
 {
-
+    
 }
