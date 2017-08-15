@@ -8,6 +8,7 @@
         }
     ],
     "require": {
+        "illuminate/translation": "^5.4",
         "illuminate/support": "^5.4"
     },
     "require-dev": {
