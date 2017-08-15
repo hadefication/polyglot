@@ -16,12 +16,15 @@ A nifty JavaScript helper function will be exposed too that you can use to trans
 Without param
 ```
 trans('auth.failed');
+
 // Should return the equivalent translation of the supplied key
 ```
 
 Translations with params
 ```
-trans('validation.required', {attribute: 'email'}); // Should return the equivalent translation of the supplied key including the supplied params
+trans('validation.required', {attribute: 'email'});
+
+// Should return the equivalent translation of the supplied key including the supplied params
 ```
 
 ### Config
