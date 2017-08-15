@@ -1,5 +1,12 @@
 import get from 'lodash.get';
 
+/**
+ * Translate keys like laravel helper method trans
+ *
+ * @param  {String} key         the translation key to translate
+ * @param  {Object} [params={}] the params to include in the translation
+ * @return {String}             the translated string
+ */
 const trans = function(key, params = {}) {
     let trans = get(__TRANSLATIONS__, key, key);
 

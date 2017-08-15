@@ -11,7 +11,6 @@ class PolyglotServiceProvider extends ServiceProvider
      * Register any application services.
      *
      * @return void
-     * @author glen
      */
     public function register()
     {
@@ -24,11 +23,14 @@ class PolyglotServiceProvider extends ServiceProvider
      * Boot
      *
      * @return void
-     * @author glen
      */
     public function boot()
     {
         $this->mergeConfigFrom(__DIR__.'/config/polyglot.php', 'polyglot');
+
+        $this->publishes([
+            __DIR__.'/config/polyglot.php' => config_path('polyglot.php')
+        ], 'config');
 
         Blade::directive('polyglot', function () {
             return "<?php echo app('" . Polyglot::class . "')->generate(); ?>";

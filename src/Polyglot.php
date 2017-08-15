@@ -6,13 +6,28 @@ use Illuminate\Translation\Translator;
 
 class Polyglot
 {
+    /**
+     * Translator class container
+     *
+     * @var Illuminate\Translation\Translator
+     */
     protected $translator;
 
+    /**
+     * Constructor
+     *
+     * @param Illuminate\Translation\Translator $translator
+     */
     public function __construct(Translator $translator)
     {
         $this->translator = $translator;
     }
 
+    /**
+     * Generate tranlation keys and export the trans function
+     *
+     * @return String
+     */
     public function generate()
     {
         $translations = [];
