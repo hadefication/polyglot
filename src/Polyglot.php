@@ -24,21 +24,33 @@ class Polyglot
     }
 
     /**
+     * Compile translation files to array
+     *
+     * @return Array
+     */
+    public function compileTranslationFiles()
+    {
+        // Get translation files
+        $files = config('polyglot.files');
+
+        $translations = [];
+        
+        foreach ($files as $key => $file) {
+            // Load all translation keys filed under the translation file
+            $translations[$file] = $this->translator->trans($file);
+        }
+
+        return $translations;
+    }
+
+    /**
      * Generate tranlation keys and export the trans function
      *
      * @return String
      */
     public function generate()
     {
-        $translations = [];
-
-        $files = config('polyglot.files');
-
-        foreach ($files as $key => $file) {
-            $translations[$file] = $this->translator->trans($file);
-        }
-
-        $json = json_encode($translations);
+        $json = json_encode($this->compileTranslationFiles());
         $transFunction = file_get_contents(__DIR__ . '/dist/js/trans.min.js');
 
         return <<<EOT
