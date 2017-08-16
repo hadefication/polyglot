@@ -21,4 +21,5 @@ const trans = function(key, params = {}) {
     return trans;
 };
 
+export default trans;
 window.trans = trans;
