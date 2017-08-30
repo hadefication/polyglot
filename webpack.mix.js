@@ -12,6 +12,7 @@ let mix = require('laravel-mix');
  */
 
 mix.js('src/resources/assets/js/trans.js', 'src/dist/js/trans.min.js');
+mix.js('src/resources/assets/js/mixin.js', 'src/dist/js/mixin.min.js');
 
 // Full API
 // mix.js(src, output);

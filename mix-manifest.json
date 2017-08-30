@@ -1,3 +1,4 @@
 {
-    "/src/dist/js/trans.min.js": "/src/dist/js/trans.min.js"
+    "/src/dist/js/trans.min.js": "/src/dist/js/trans.min.js",
+    "/src/dist/js/mixin.min.js": "/src/dist/js/mixin.min.js"
 }
