@@ -1,6 +1,7 @@
 {
     "name": "hadefication/polyglot",
     "description": "Extend Laravel Translation to JavaScript.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Glen Gringgo Bangkila",
