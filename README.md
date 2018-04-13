@@ -4,7 +4,7 @@ Polyglot creates a blade directive `@polyglot` that you can add to your master b
 
 ## Installation
 1. `composer require hadefication/polyglot`
-2. Add `Hadefication\Polyglot\PolyglotServiceProvider::class` to your `config/app.php` under the `providers` array. This step is not need for version 5.5 and above where auto-discovery is introduced.
+2. Add `Hadefication\Polyglot\PolyglotServiceProvider::class` to your `config/app.php` under the `providers` array. This step is not needed for version 5.5 and above where package auto-discovery is introduced.
 3. Include `@polyglot` blade directive to your master blade file on top of your JavaScript files -- probably in the header or before the body tag ends.
 
 ## Usage
