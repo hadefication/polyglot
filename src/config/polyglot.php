@@ -7,8 +7,8 @@ return [
     | Files
     |--------------------------------------------------------------------------
     |
-    | This value are the tranlation files that will be loaded to
-    | __TRANSLATIONS__ variable, see documentation for details.
+    | This value are the translation files that will be loaded to the
+    | Polyglot JavaScript variable, see documentation for details.
     */
     'files' => [
         'auth',

@@ -1,5 +1,3 @@
-import get from 'lodash.get';
-
 /**
  * Translate keys like laravel helper method trans
  *
@@ -7,11 +5,15 @@ import get from 'lodash.get';
  * @param  {Object} [params={}] the params to include in the translation
  * @return {String}             the translated string
  */
-const trans = function(key, params = {}) {
-    let trans = get(__TRANSLATIONS__, key, key);
+export function trans(key, params = {}) {
+    if (typeof Polyglot === 'undefined') {
+        throw new Error('Polyglot is missing.');
+    }
 
-    // Replace all variables with the supplied params
-    // if there's any.
+    let trans = Polyglot;
+    
+    key.split('.').forEach(item => trans = ((typeof trans[item] !== 'undefined') ? trans[item] : key));
+    
     for (let param in params) {
         let pattern = `:${param}`;
         let regex = new RegExp(pattern, "g");
@@ -19,7 +21,6 @@ const trans = function(key, params = {}) {
     }
 
     return trans;
-};
+}
 
-export default trans;
 window.trans = trans;

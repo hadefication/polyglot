@@ -2,23 +2,11 @@
 
 namespace Hadefication\Polyglot;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
 
 class PolyglotServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->app->singleton('polyglot', function () {
-            return $this->app->make('Hadefication\Polyglot\Polyglot');
-        });
-    }
-
     /**
      * Boot
      *
@@ -33,8 +21,14 @@ class PolyglotServiceProvider extends ServiceProvider
         ], 'config');
 
         Blade::directive('polyglot', function () {
-            return "<?php echo app('" . Polyglot::class . "')->generate(); ?>";
+            return "<?php echo app('" . PolyglotBladeDirective::class . "')->generate(); ?>";
         });
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                PolyglotCommand::class,
+            ]);
+        }
     }
 
 }
