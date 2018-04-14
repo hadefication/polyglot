@@ -39,7 +39,29 @@ php artisan polyglot:dump
 The command above should dump a JavaScript file named polyglot.js in your  `/resources/assets/js` directory. You can also supply `--path=/path/to/where/the/dump/file/will/be/exported` to dumpt the file in other location. The command should look like `php artisan polyglot:dump --path=./resources/assets/js/vendor/polyglot.js`.
 
 ```
-import { trans } from './polyglot';
-window.trans = trans;
+// ES6
+import './path/to/polyglot';
+
+// Old School
+require('./path/to/polyglot.js');
 ```
 The code above should be added to your bootstrap file or to the main JavaScript file if you have a custom entry point.
+
+### Laravel Mix
+You can also automate the dumping by installing a webpack plugin that runs a simple artisan command on every build so you are sure that you got the latest translation files included in your build. Follow steps below:
+
+1. Install the webpack plugin: `npm install --save-dev webpack-shell-plugin` or `yarn add --dev webpack-shell-plugin`
+2. Include the plugin to your `webpack.mix.js` file:
+```
+const mix = require('laravel-mix');
+const WebpackShellPlugin = require('webpack-shell-plugin');
+
+mix.webpackConfig({
+    plugins: [
+        new WebpackShellPlugin({ onBuildStart: ['php artisan polyglot:dump'], onBuildEnd: [] }),
+    ]
+});
+
+....
+```
+3. Done! This will run `php artisan polyglot:dump` on start of the build so you get the latest translation files.
