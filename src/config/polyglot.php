@@ -1,19 +1,30 @@
 <?php
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Setup
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure the setup if you want it as default where you only
+    | add the @polyglot directive in your master blade file or opt for the 
+    | advance setup where you can include a JavaScript file to your
+    | build pipeline. See the documentations for more details.
+
+    | Available Setups: "default", "advance"
+    |
+    */
+    'setup' => 'default',
 
     /*
     |--------------------------------------------------------------------------
-    | Files
+    | Location
     |--------------------------------------------------------------------------
     |
-    | This value are the translation files that will be loaded to the
-    | Polyglot JavaScript variable, see documentation for details.
+    | The location of your app's translation files. By default, it is located
+    | in ./resources/lang. Modify this if you have a custom location for
+    | your translation files.
+    |
     */
-    'files' => [
-        'auth',
-        'pagination',
-        'passwords',
-        'validation'
-    ]
+    'location' => base_path('resources/lang')
 ];

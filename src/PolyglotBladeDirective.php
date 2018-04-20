@@ -28,12 +28,18 @@ class PolyglotBladeDirective
      */
     public function generate()
     {
-        $json = $this->translations->compile()->toJson();
-        $transFunction = file_get_contents(__DIR__ . '/../dist/js/trans.min.js');
+        $setup = config()->get('polyglot.setup', 'default');
+        $json = ($setup == 'default') ? $this->translations->compile()->toJson() : '{}';
+        $transFunction = ($setup == 'default') ? file_get_contents(__DIR__ . '/../dist/js/trans.min.js') : '';
+        $locale = $this->translations->locale();
+        $fallbackLocale = $this->translations->fallbackLocale();
         return <<<EOT
 <script type="text/javascript">
-    var Polyglot = $json;
-    $transFunction
+    var Polyglot = {
+        translations: $json,
+        activeLocale: '$locale',
+        fallbackLocale: '$fallbackLocale',
+    };$transFunction
 </script>
 EOT;
     }

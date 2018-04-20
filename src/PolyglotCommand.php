@@ -69,8 +69,7 @@ class PolyglotCommand extends Command
         $json = $this->translations->compile()->toJson();
         $transFunction = file_get_contents(__DIR__ . '/resources/assets/js/trans.js');
         return <<<EOT
-var Polyglot = $json;
-export { Polyglot };
+Polyglot.translations = $json;
 $transFunction
 EOT;
     }
