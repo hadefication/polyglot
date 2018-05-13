@@ -50,7 +50,7 @@ The code above should be added to your bootstrap file or to the main JavaScript 
 ### Laravel Mix
 You can also automate the dumping by installing a webpack plugin that runs a simple artisan command on every build so you are sure that you got the latest translation files included in your build. Follow steps below:
 
-1. Install the webpack plugin: `npm install --save-dev webpack-shell-plugin` or `yarn add --dev webpack-shell-plugin`
+1. Install the [webpack shell plugin](https://github.com/1337programming/webpack-shell-plugin): `npm install --save-dev webpack-shell-plugin` or `yarn add --dev webpack-shell-plugin`
 2. Include the plugin to your `webpack.mix.js` file:
 ```
 const mix = require('laravel-mix');
