@@ -5,7 +5,7 @@
  * @param  {Object} [params={}] the params to include in the translation
  * @return {String}             the translated string
  */
-export function trans(key, params = {}) {
+var trans = function(key, params = {}) {
     if (typeof Polyglot === 'undefined') {
         throw new Error('Polyglot is missing.');
     }
@@ -23,4 +23,4 @@ export function trans(key, params = {}) {
     return trans;
 }
 
-window.trans = trans;
+export { trans };
