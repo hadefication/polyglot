@@ -1,6 +1,6 @@
 # Laravel Polyglot
 
-This package extends Laravel's localization to JavaScript simply by adding the `@polyglot` blade directive to your master blade layout. The directive will then generate the necessary inline JavaScript tag including all the defined translations and the JavaScript helper method `trans`.
+This package extends Laravel's localization to JavaScript.
 
 ## Installation
 1. Install it by running `composer require hadefication/polyglot`.
