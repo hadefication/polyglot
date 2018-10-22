@@ -2,21 +2,21 @@
 
 namespace Hadefication\Polyglot;
 
-class PolyglotBladeDirective
+class BladeDirective
 {
     /**
      * Translations container
      *
-     * @var PolyglotTranslations
+     * @var Translations
      */
     protected $translations;
 
     /**
      * Constructor
      *
-     * @param PolyglotTranslations $translations
+     * @param Translations $translations
      */
-    public function __construct(PolyglotTranslations $translations)
+    public function __construct(Translations $translations)
     {
         $this->translations = $translations;
     }
@@ -28,12 +28,12 @@ class PolyglotBladeDirective
      */
     public function generate()
     {
-        $json = $this->translations->compile()->toJson();
-        $transFunction = file_get_contents(__DIR__ . '/../dist/js/trans.min.js');
+        $translations = $this->translations->compile()->toJson();
+        $polyglot = file_get_contents(__DIR__ . '/dist/js/polyglot.js');
         return <<<EOT
 <script type="text/javascript">
-    var Polyglot = $json;
-    $transFunction
+    var Polyglot = $translations;
+    $polyglot
 </script>
 EOT;
     }

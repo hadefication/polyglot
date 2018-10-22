@@ -5,21 +5,22 @@ namespace Hadefication\Polyglot;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
-class PolyglotCommand extends Command
+class Console extends Command
 {
     /**
      * Command signature
      *
      * @var string
      */
-    protected $signature = 'polyglot:dump {path=./resources/assets/js/polyglot.js}';
+    protected $signature = 'route:dump 
+                            {--path= : Path where to dump the file, defaults to ./resources/js/polyglot.js}';
     
     /**
      * Command description
      *
      * @var string
      */
-    protected $description = 'Dump\'s a JavaScript file the houses all translations that can be included to Laravel Mix or your custom build pipeline.';
+    protected $description = 'Dump a JavaScript file the houses all translations that can be included to Laravel Mix or your custom build pipeline.';
 
     /**
      * Filesystem container
@@ -31,7 +32,7 @@ class PolyglotCommand extends Command
     /**
      * Translations container
      *
-     * @var PolyglotTranslations
+     * @var Translations
      */
     protected $translations;
     
@@ -39,9 +40,9 @@ class PolyglotCommand extends Command
      * Constructor
      *
      * @param Filesystem $fs
-     * @param PolyglotTranslations $translations
+     * @param Translations $translations
      */
-    public function __construct(Filesystem $fs, PolyglotTranslations $translations)
+    public function __construct(Filesystem $fs, Translations $translations)
     {
         parent::__construct();
         $this->fs = $fs;
@@ -55,23 +56,28 @@ class PolyglotCommand extends Command
      */
     public function handle()
     {
-        $path = $this->argument('path');
+        $path = is_null($this->option('path')) ? './resources/js/polyglot.js' : $this->option('path');
         $this->makePath($path);
-        $this->fs->put($path, $this->generateJavaScriptContents());
+        $this->fs->put($path, $this->generate());
     }
     /**
      * Generate the js contents that will be dump
      *
      * @return string
      */
-    public function generateJavaScriptContents()
+    public function generate()
     {
-        $json = $this->translations->compile()->toJson();
-        $transFunction = file_get_contents(__DIR__ . '/resources/assets/js/trans.js');
+        $translations = $this->translations->compile()->toJson(JSON_PRETTY_PRINT);
+        $polyglot = file_get_contents(__DIR__ . '/js/polyglot.js');
         return <<<EOT
-var Polyglot = $json;
-export { Polyglot };
-$transFunction
+/**
+ * Translations
+ * 
+ * @type {Object}
+ */
+const Polyglot = $translations;
+
+$polyglot
 EOT;
     }
 

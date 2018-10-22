@@ -1,0 +1,1 @@
+!function(){"use strict";window.trans=function(o){var n=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{};if("undefined"==typeof Polyglot)throw new Error("Polyglot is missing.");var r=Polyglot;for(var t in o.split(".").forEach(function(n){return r=void 0!==r[n]?r[n]:o}),n){var i=":".concat(t),e=new RegExp(i,"g");r=r.replace(e,n[t])}return r}}();

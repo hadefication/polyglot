@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Files
+    | Translation files to include
     |--------------------------------------------------------------------------
     |
     | This value are the translation files that will be loaded to the

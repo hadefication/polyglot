@@ -21,12 +21,12 @@ class PolyglotServiceProvider extends ServiceProvider
         ], 'config');
 
         Blade::directive('polyglot', function () {
-            return "<?php echo app('" . PolyglotBladeDirective::class . "')->generate(); ?>";
+            return "<?php echo app('" . BladeDirective::class . "')->generate(); ?>";
         });
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                PolyglotCommand::class,
+                Console::class,
             ]);
         }
     }

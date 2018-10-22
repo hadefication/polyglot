@@ -1,4 +1,4 @@
-import { trans } from './trans.js';
+import trans from './polyglot.js';
 
 beforeEach(() => {
     global.Polyglot = {

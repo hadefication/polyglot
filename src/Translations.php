@@ -5,7 +5,7 @@ namespace Hadefication\Polyglot;
 use Illuminate\Support\Collection;
 use Illuminate\Translation\Translator;
 
-class PolyglotTranslations
+class Translations
 {
 
     /**
@@ -36,7 +36,7 @@ class PolyglotTranslations
      *
      * @return Collection
      */
-    public function translationFiles()
+    public function files()
     {
         return new Collection(config('polyglot.files'));
     }
@@ -48,7 +48,7 @@ class PolyglotTranslations
      */
     public function compile()
     {
-        $this->translationFiles()->each(function($file) {
+        $this->files()->each(function($file) {
             $this->translations[$file] = $this->translator->trans($file);
         });
         return $this;
@@ -58,9 +58,10 @@ class PolyglotTranslations
      * Encode to JSON
      *
      * @param integer $options
+     * @param integer $depth
      * @return string
      */
-    public function toJson($options = 0)
+    public function toJson($options = 0, $depth = 512)
     {
         return json_encode($this->translations, $options);
     }

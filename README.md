@@ -1,18 +1,38 @@
-# Polyglot
+# Laravel Polyglot
 
-Polyglot creates a blade directive `@polyglot` that you can add to your master blade file. This will then export a global variable `Polyglot` where all of your app's current locale translation keys are stored. The root object keys are base from the defined translation files located in the Polyglot's configuration file.
+This package extends Laravel's localization to JavaScript simply by adding the `@polyglot` blade directive to your master blade layout. The directive will then generate the necessary inline JavaScript tag including all the defined translations and the JavaScript helper method `trans`.
 
 ## Installation
-1. `composer require hadefication/polyglot`
-2. Add `Hadefication\Polyglot\PolyglotServiceProvider::class` to your `config/app.php` under the `providers` array. This step is not needed for version 5.5 and above where package auto-discovery is introduced.
-3. Include `@polyglot` blade directive to your master blade file on top of your JavaScript files -- probably in the header or before the body tag ends.
+1. Install it by running `composer require hadefication/polyglot`.
+2. Publish the included config file by running `php artisan vendor:publish` and select the corresponding number of `Hadefication\Polyglot\PolyglotServiceProvider` entry and that should be it.
 
 ## Usage
-Once installed, this package will then expose a `Polyglot` variable where all of your current locale translation keys are stored.
+Once the package is installed, you can either use 1 of the 2 approaches. The first approach is by adding the polyglot blade directive right before your main JavaScript file. See example below:
 
-A nifty JavaScript helper function will be exposed too that you can use to translate translation keys like what we're doing in Laravel. Accidentally named it `trans` too. See examples below for more details on `trans` helper function.
+```
+        ...
+        @polyglot
+        <script src="{{ mix('js/app.js') }}"></script>
+    </body>
+</html>
+```
+The second approach is to run the included command that dumps JavaScript file that can then be included anywhere in your JavaScript handlings. Fire it up by running `php artisan route:dump`, this will then dump a JavaScript file in your `resources/js` directory. The command also includes an optional param `--path` to customize where the JavaScript file will be dumped.
 
-### Example
+Below is rhe standard command, will dump a JavaScript file to `resources/js` (`resources/js/polyglot.js`)
+```
+php artisan route:dump
+````
+
+Below will dump a JavaScript file to `/resources/js/assets`(`resources/assets/js/polyglot.js`)
+```
+php artisan route:dump --path=./resources/assets/js/polyglot.js
+```
+
+And finally below will dump a JavaScript file will a custom name to `resources/js/` (`resources/js/custom_name.js`)
+```
+php artisan route:dump --path=./resources/js/custom_name.js
+```
+## API
 Without param
 ```
 trans('auth.failed');
