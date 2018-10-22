@@ -1,6 +1,6 @@
 # Laravel Polyglot
 
-This package extends Laravel's localization to JavaScript.
+Extends Laravel's localization handling to JavaScript.
 
 ## Installation
 1. Install it by running `composer require hadefication/polyglot`.
