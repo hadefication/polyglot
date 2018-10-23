@@ -3,10 +3,14 @@
 namespace Hadefication\Polyglot;
 
 use Illuminate\Support\Collection;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\Translator;
 
 class Translations
 {
+    
+    protected $fs;
+    protected $settings;
 
     /**
      * Translator container
@@ -27,8 +31,10 @@ class Translations
      *
      * @param Translator $translator
      */
-    public function __construct(Translator $translator) {
+    public function __construct(Translator $translator, Filesystem $fs) {
+        $this->fs = $fs;
         $this->translator = $translator;
+        $this->settings = config('polyglot');
     }
 
     /**
@@ -48,6 +54,24 @@ class Translations
      */
     public function compile()
     {
+        $translations = [];
+        $files = $this->fs->allFiles($this->settings['path']);
+        $locales = (new Collection($files))
+                        ->mapWithKeys(function($file) {
+                            $key = $file->getRelativePath();
+                            if (strlen($key) == 0) {
+                                $key = str_replace(".{$file->getExtension()}", "", $file->getFilename());
+                            }
+                            return [$key => []];
+                        })
+                        ->filter(function($item, $key) {
+                            return strlen($key) > 0;
+                        })
+                        ->all();
+
+        
+
+        dd($files, $locales);
         $this->files()->each(function($file) {
             $this->translations[$file] = $this->translator->trans($file);
         });

@@ -12,7 +12,7 @@ class Console extends Command
      *
      * @var string
      */
-    protected $signature = 'route:dump 
+    protected $signature = 'polyglot:dump 
                             {--path= : Path where to dump the file, defaults to ./resources/js/polyglot.js}';
     
     /**
@@ -20,7 +20,7 @@ class Console extends Command
      *
      * @var string
      */
-    protected $description = 'Dump a JavaScript file the houses all translations that can be included to Laravel Mix or your custom build pipeline.';
+    protected $description = 'Compile and dump all language keys and strings to a JavaScript file.';
 
     /**
      * Filesystem container

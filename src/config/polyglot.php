@@ -15,5 +15,20 @@ return [
         'pagination',
         'passwords',
         'validation'
+    ],
+
+    'path' => resource_path('lang'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Include Package Translations
+    |--------------------------------------------------------------------------
+    |
+    | Define all packages that will be scanned to collect all translation
+    | keys and strings that will be ported to JavaScript via blade or
+    | the command approach.
+    */
+    'packages' => [
+        // 
     ]
 ];
