@@ -2,6 +2,9 @@
 
 namespace Hadefication\Polyglot;
 
+use Illuminate\Support\Facades\App;
+
+
 class BladeDirective
 {
     /**
@@ -28,12 +31,20 @@ class BladeDirective
      */
     public function generate()
     {
-        $translations = $this->translations->compile()->toJson();
-        $polyglot = file_get_contents(__DIR__ . '/dist/js/polyglot.js');
+        $polyglot = json_encode(array_merge([
+            'settings' => [
+                'locale' => App::getLocale(), 
+                'fallback' => config('app.fallback_locale')
+            ],
+            'translations' => $this->translations->config()['mode'] == 'inline' 
+                                ? $this->translations->compile()->toArray() 
+                                : [],
+        ]));
+        $helpers = file_get_contents(__DIR__ . '/dist/js/polyglot.js');
         return <<<EOT
 <script type="text/javascript">
-    var Polyglot = $translations;
-    $polyglot
+    var Polyglot = $polyglot;
+    $helpers
 </script>
 EOT;
     }

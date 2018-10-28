@@ -1,10 +1,27 @@
-import trans from './polyglot.js';
+import { trans } from './polyglot.js';
 
 beforeEach(() => {
     global.Polyglot = {
-        validation: {
-            required: 'The :attribute field is required.',
-            params: 'This has a lot of params :param1, :param2, :param3 and :param4'
+        settings: {
+            locale: 'en',
+            fallback: 'en'
+        },
+        translations: {
+            en: {
+                keys: {
+                    validation: {
+                        required: 'The :attribute field is required.',
+                        params: 'This has a lot of params :param1, :param2, :param3 and :param4'
+                    }
+                },
+                strings: {}
+            },
+            es: {
+                keys: {
+    
+                },
+                strings: {}
+            }
         }
     };
 });

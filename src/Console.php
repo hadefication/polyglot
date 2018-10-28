@@ -75,7 +75,7 @@ class Console extends Command
  * 
  * @type {Object}
  */
-const Polyglot = $translations;
+Polyglot.translations = $translations;
 
 $polyglot
 EOT;
