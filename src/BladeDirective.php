@@ -39,7 +39,7 @@ class BladeDirective
             'translations' => $this->translations->config()['mode'] == 'inline' 
                                 ? $this->translations->compile()->toArray() 
                                 : [],
-        ]));
+        ]), JSON_PRETTY_PRINT);
         $helpers = file_get_contents(__DIR__ . '/dist/js/polyglot.js');
         return <<<EOT
 <script type="text/javascript">

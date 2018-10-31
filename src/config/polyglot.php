@@ -17,7 +17,7 @@ return [
         'validation'
     ],
 
-    'mode' => 'bundled',
+    'mode' => 'inline',
 
     'path' => resource_path('lang'),
 
