@@ -3,12 +3,13 @@
  * 
  * @return {void}
  */
-const usePolyglot = (locale) => {
+const usePolyglot = (key, locale) => {
     if (typeof Polyglot == 'undefined') {
         throw new Error('Polyglot is undefined.');
     }
 
-    const { settings, translations } = Polyglot;
+    const { settings, translations: rawTranslations } = Polyglot;
+    const translations = resolveSource(key, rawTranslations);
     const { locale: configLocale, fallback: fallbackLocale } = settings;
     const settingsLocale = configLocale != null ? configLocale : fallbackLocale;
     const finalLocale = locale != null ? locale : settingsLocale;
@@ -16,8 +17,8 @@ const usePolyglot = (locale) => {
     return {
         settings, 
         finalLocale,
-        translations,
         configLocale,
+        translations,
         fallbackLocale,
     };
 };
@@ -29,17 +30,33 @@ const usePolyglot = (locale) => {
  */
 const requireKeyOrString = () => { 
     throw new Error('Translation key or string is required'); 
-å};
+};
+
+const namespacePattern = /\w+::/;
+
+const resolveSource = (key, translations) => {
+    const match = key.match(namespacePattern);
+    if (match == null) {
+        return translations.laravel;
+    }
+    const [ vendor ] = match;
+    return translations.vendor[vendor.replace('::', '')];
+};
+
+const removeNamespace = (key) => {
+    return key.replace(namespacePattern, '');
+}
 
 /**
  * Translate key
  * 
- * @param {String} key 
+ * @param {String} rawKey 
  * @param {Object} translations 
  * @param {String} locale 
  * @return {String}
  */
-const translateKey = (key, translations, locale) => {
+const translateKey = (rawKey, translations, locale) => {
+    const key = removeNamespace(rawKey);
     let translation = translations[locale].keys;
     key.split('.').forEach(item => translation = ((typeof translation[item] !== 'undefined') ? translation[item] : key));
     return translation;
@@ -184,7 +201,7 @@ const choose = (translation, count) => {
  */
 const translate = (key = requireKeyOrString(), params = null, locale = null) => {
 
-    const { translations, finalLocale } = usePolyglot(locale);
+    const { translations, finalLocale } = usePolyglot(key, locale);
 
     if (typeof translations[finalLocale] == 'undefined') {
         return key;
@@ -200,7 +217,7 @@ const translate = (key = requireKeyOrString(), params = null, locale = null) => 
 };
 
 const choice = (key = requireKeyOrString(), count = requireKeyOrString(), params = null, locale = null) => {
-    const { translations, finalLocale } = usePolyglot(locale);
+    const { translations, finalLocale } = usePolyglot(key, locale);
 
     if (typeof translations[finalLocale] == 'undefined') {
         return key;

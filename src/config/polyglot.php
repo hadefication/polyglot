@@ -19,8 +19,6 @@ return [
 
     'mode' => 'inline',
 
-    'path' => resource_path('lang'),
-
     /*
     |--------------------------------------------------------------------------
     | Include Package Translations
