@@ -32,8 +32,20 @@ const requireKeyOrString = () => {
     throw new Error('Translation key or string is required'); 
 };
 
+/**
+ * Package namespace pattern
+ * 
+ * @type {RegExp}
+ */
 const namespacePattern = /\w+::/;
 
+/**
+ * Resolve which source to use (laravel or vendors)
+ * 
+ * @param {String} key 
+ * @param {Object} translations 
+ * @return {Object}
+ */
 const resolveSource = (key, translations) => {
     const match = key.match(namespacePattern);
     if (match == null) {
@@ -43,9 +55,15 @@ const resolveSource = (key, translations) => {
     return translations.vendor[vendor.replace('::', '')];
 };
 
+/**
+ * Remove namespace from the supplied key
+ * 
+ * @param {String} key 
+ * @return {String}
+ */
 const removeNamespace = (key) => {
     return key.replace(namespacePattern, '');
-}
+};
 
 /**
  * Translate key
@@ -91,6 +109,13 @@ const replaceParams = (translation, params) => {
     return translation;
 };
 
+/**
+ * Remove supplied pattern from string
+ * 
+ * @param {String} string 
+ * @param {String} pattern 
+ * @return {String}
+ */
 const removePatternFrom = (string, pattern) => {
     return string.replace(`${pattern}`, '').trim();
 };

@@ -8,7 +8,7 @@ use Illuminate\Translation\Translator;
 class Translations
 {
     
-    protected $settings;
+    protected $config;
 
     protected $compiler;
 
@@ -34,7 +34,7 @@ class Translations
     public function __construct(Compiler $compiler, Translator $translator) {
         $this->compiler = $compiler;
         $this->translator = $translator;
-        $this->settings = config('polyglot');
+        $this->config = config('polyglot');
     }
 
     /**
@@ -45,16 +45,25 @@ class Translations
     public function compile()
     {
         $this->init()->laravel()->vendor();
-        // dd($this->translations);
         return $this;
     }
 
+    /**
+     * Initialize
+     *
+     * @return self
+     */
     public function init()
     {
         $this->translations = ['laravel' => [], 'vendor' => []];
         return $this;
     }
 
+    /**
+     * Compile laravel language files
+     *
+     * @return self
+     */
     public function laravel()
     {
         $path = $this->getProtectedProps($this->translator->getLoader(), 'path');
@@ -62,10 +71,23 @@ class Translations
         return $this;
     }
 
+    /**
+     * Compile vendor files
+     *
+     * @return self
+     */
     public function vendor()
     {
         $paths = $this->getProtectedProps($this->translator->getLoader(), 'hints');
         $this->translations['vendor'] = (new Collection($paths))
+                                            ->filter(function($path, $vendor) {
+                                                $packages = $this->config['packages'] ?? [];
+                                                if (empty($packages)) {
+                                                    return true;
+                                                } else {
+                                                    return in_array($vendor, $packages);
+                                                }
+                                            })
                                             ->mapWithKeys(function($path, $vendor) {
                                                 return [$vendor => $this->compiler->usePath($path)->compile()];
                                             })
@@ -73,6 +95,13 @@ class Translations
         return $this;
     }
 
+    /**
+     * Read protected props
+     *
+     * @param mixed $obj
+     * @param string $prop
+     * @return mixed
+     */
     private function getProtectedProps($obj, $prop)
     {
         $reflection = new \ReflectionClass($obj);
@@ -111,7 +140,7 @@ class Translations
      */
     public function config()
     {
-        return $this->settings;
+        return $this->config;
     }
 
 }

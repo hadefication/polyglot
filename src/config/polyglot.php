@@ -4,31 +4,34 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Translation files to include
+    | Mode (bundle|inline)
     |--------------------------------------------------------------------------
     |
-    | This value are the translation files that will be loaded to the
-    | Polyglot JavaScript variable, see documentation for details.
+    | Set to "bundle" to omit translations and helper methods in the render of 
+    | the @polyglot blade directive. Bundle mode will also require you to 
+    | import the generated JavaScript file by the provided command. 
+    | Set to "inline" to write everything in the render of the 
+    | @polyglot blade directive.
     */
-    'files' => [
-        'auth',
-        'pagination',
-        'passwords',
-        'validation'
-    ],
-
     'mode' => 'inline',
 
     /*
     |--------------------------------------------------------------------------
-    | Include Package Translations
+    | Files
     |--------------------------------------------------------------------------
     |
-    | Define all packages that will be scanned to collect all translation
-    | keys and strings that will be ported to JavaScript via blade or
-    | the command approach.
+    | Limit translation files that will be included by adding their names to 
+    | this field. Leave empty you wish to include all language files.
     */
-    'packages' => [
-        // 
-    ]
+    'files' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Packages 
+    |--------------------------------------------------------------------------
+    |
+    | Limit packages that will be scanned for language files. Leave empty to 
+    | scan all installed packages.
+    */
+    'packages' => []
 ];
